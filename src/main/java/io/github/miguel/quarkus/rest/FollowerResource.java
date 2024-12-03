@@ -11,9 +11,7 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.jboss.resteasy.annotations.Query;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Path("/users/{userId}/followers")

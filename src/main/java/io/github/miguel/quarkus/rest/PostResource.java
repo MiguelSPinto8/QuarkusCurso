@@ -2,6 +2,7 @@ package io.github.miguel.quarkus.rest;
 
 import io.github.miguel.quarkus.domain.model.Post;
 import io.github.miguel.quarkus.domain.model.User;
+import io.github.miguel.quarkus.domain.model.Follower;
 import io.github.miguel.quarkus.domain.repository.FollowerRepository;
 import io.github.miguel.quarkus.domain.repository.PostRepository;
 import io.github.miguel.quarkus.domain.repository.UserRepository;
@@ -22,9 +23,9 @@ import java.util.stream.Collectors;
 @Produces(MediaType.APPLICATION_JSON)
 public class PostResource {
 
-    private UserRepository userRepository;
-    private PostRepository repository;
-    private FollowerRepository followerRepository;
+    private final UserRepository userRepository;
+    private final PostRepository repository;
+    private final FollowerRepository followerRepository;
 
     @Inject
     public PostResource(
@@ -58,7 +59,7 @@ public class PostResource {
     @GET
     public Response listPosts(
             @PathParam("userId") Long userId,
-            @HeaderParam("followerId") Long followerId ){
+            @HeaderParam("followerId") Long followerId){
         User user = userRepository.findById(userId);
         if(user == null){
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -76,7 +77,7 @@ public class PostResource {
         if(follower == null){
             return Response
                     .status(Response.Status.BAD_REQUEST)
-                    .entity("Inexistent followerId")
+                    .entity("Nonexistent followerId")
                     .build();
         }
 
